@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>아이코와 함께하는 데이터센터 탐험 | AI KOREA</title>
+<meta name="description" content="AI KOREA 마스코트 아이코와 함께 데이터센터 안을 직접 돌아다니며 서버와 냉각 설비를 배우는 3D 탐험 게임">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="아이코와 함께하는 데이터센터 탐험 | AI KOREA">
+<meta property="og:description" content="AI KOREA 마스코트 아이코와 함께 데이터센터 안을 직접 돌아다니며 서버와 냉각 설비를 배우는 3D 탐험 게임">
+<meta property="og:image" content="https://mu060600-ui.github.io/aiko-adventure/assets/og.png">
+<meta property="og:url" content="https://mu060600-ui.github.io/aiko-adventure/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0d1b2e">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/jsm/" } }</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+
+<div id="loading"><div class="ld-box"><img src="assets/aikorea-logo.png" alt="AI KOREA"><div class="ld-bar"><i></i></div><p id="ld-text">불러오는 중…</p></div></div>
+
+<!-- 메인 화면 -->
+<div id="menu" class="hidden">
+  <div class="menu-card glass">
+    <img class="menu-logo" src="assets/aikorea-logo.png" alt="AI KOREA">
+    <h1 data-t="title"></h1><p class="sub" data-t="subtitle"></p>
+    <nav>
+      <button class="primary" data-act="start" data-t="menu_start"></button>
+      <button data-act="select" data-t="menu_select"></button>
+      <button data-act="free" data-t="menu_free"></button>
+      <button data-act="record" data-t="menu_record"></button>
+      <button data-act="codex" data-t="menu_codex"></button>
+      <button data-act="help" data-t="menu_help"></button>
+      <button data-act="about" data-t="menu_about"></button>
+    </nav>
+    <div class="menu-foot"><button class="chip" data-act="lang">KO / EN</button><span class="note" data-t="placeholder_model"></span></div>
+  </div>
+</div>
+
+<!-- 탐험 화면 HUD -->
+<div id="hud" class="hidden">
+  <div class="hud-tl glass">
+    <img src="assets/aikorea-logo.png" alt="AI KOREA">
+    <div class="lv-name" id="lv-name"></div>
+    <div class="lv-row"><span data-t="hud_power"></span><b id="lv-power"></b></div>
+    <div class="lv-row"><span data-t="hud_progress"></span><b id="lv-prog"></b></div>
+    <div class="bar"><i id="lv-bar"></i></div>
+  </div>
+  <div class="hud-tr">
+    <canvas id="minimap" class="glass" width="170" height="130"></canvas>
+    <div class="tr-btns">
+      <button class="glass icon" data-act="worldmap" title="World map">🗺️</button>
+      <button class="glass icon" data-act="codex" title="Codex">📖</button>
+      <button class="glass icon" data-act="settings" title="Settings">⚙️</button>
+    </div>
+  </div>
+  <div class="hud-ml glass" id="missions"><h3 data-t="mission"></h3><ul id="mission-list"></ul></div>
+  <aside class="hud-mr glass hidden" id="panel">
+    <button class="x" data-act="panel-close">✕</button>
+    <div class="p-head"><span id="p-icon"></span><div><h2 id="p-name"></h2><small id="p-cat"></small></div></div>
+    <div class="tabs"><button class="on" data-tab="easy" data-t="tab_easy"></button><button data-tab="pro" data-t="tab_pro"></button></div>
+    <div class="p-body" id="p-body"></div>
+    <button class="p-detail hidden" id="p-detail" data-act="detail" data-t="detail_btn"></button>
+    <a class="inquiry" id="p-inquiry" target="_blank" rel="noopener" data-t="inquiry"></a>
+  </aside>
+  <div id="tag" class="hidden"><span id="tag-icon"></span><b id="tag-name"></b><kbd>E</kbd></div>
+  <div id="notice" class="glass hidden"></div>
+  <div id="hot"></div>
+  <div id="detail" class="glass hidden"><h3 id="detail-title"></h3><ol id="detail-list"></ol><p class="note" data-t="detail_note"></p><button class="primary" data-act="detail-exit" data-t="detail_exit"></button></div>
+  <div class="hud-bottom glass" id="modes"></div>
+  <div class="edu" data-t="edu_note"></div>
+  <div id="joy" class="touch"><i></i></div>
+  <button id="act" class="touch">✋</button>
+</div>
+
+<!-- 말풍선 -->
+<div id="talk" class="glass hidden"><div class="face">🤖</div><p id="talk-text"></p><div class="talk-btns"><button data-act="talk-skip" data-t="skip"></button><button class="primary" data-act="talk-next" data-t="next"></button></div></div>
+<div id="toast" class="glass hidden"></div>
+
+<!-- 공용 창 (월드맵, 도감, 기록, 조작법, 소개, 설정) -->
+<div id="modal" class="hidden"><div class="modal-card glass"><button class="x" data-act="modal-close">✕</button><h2 id="modal-title"></h2><div id="modal-body"></div></div></div>
+
+<div id="nowebgl" class="hidden"><div class="glass"><p data-t="webgl_fail"></p></div></div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
